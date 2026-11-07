@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Install the pinned user-space toolchain and unmodified ARM64 CPU Core."""
+import argparse
 import hashlib
 import json
 import os
 from pathlib import Path
 import platform
+import shutil
 import subprocess
 import tarfile
 import zipfile
@@ -40,6 +42,10 @@ def download(item, directory):
     return path
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--tools-only", action="store_true",
+                        help="Install toolchain without populating Core assets")
+    args = parser.parse_args()
     if platform.system() != "Linux" or platform.machine() != "x86_64":
         raise SystemExit("This lock targets a Linux x86_64 build host (ARM64 APK).")
     CACHE.mkdir(parents=True, exist_ok=True)
@@ -71,15 +77,48 @@ def main():
                ANDROID_SDK_ROOT=str(sdk),
                ANDROID_USER_HOME=str(CACHE / "android-user"))
     env["PATH"] = str(jdk / "bin") + os.pathsep + env["PATH"]
-    # Installation is part of the requested build setup. License text remains in
-    # the SDK and the command output; no system-wide package manager is used.
-    run(str(sdkmanager), f"--sdk_root={sdk}", "--licenses",
-        input="y\n" * 100, text=True, env=env)
-    run(str(sdkmanager), f"--sdk_root={sdk}", "--install",
-        *LOCK["sdk_packages"], env=env)
-    installed = subprocess.check_output(
-        [str(sdkmanager), f"--sdk_root={sdk}", "--list_installed"], env=env, text=True)
+    # cmdline-tools 23 delegates SDK management to Android CLI.
+    cli = [str(sdkmanager.with_name("android")), "--no-metrics", f"--sdk={sdk}"]
+    version = subprocess.check_output([*cli, "--version"], env=env, text=True)
+    (CACHE / "android-cli-version.txt").write_text(version)
+    run(*cli, "sdk", "install",
+        *(f"{package}@{revision}" for package, revision in LOCK["sdk_packages"].items()),
+        env=env)
+    def revision_tuple(value):
+        parts = tuple(int(part) for part in value.split("."))
+        return parts + (0,) * max(0, 3 - len(parts))
+    for package, expected in LOCK["sdk_packages"].items():
+        props = sdk / package / "source.properties"
+        if not props.is_file():
+            raise SystemExit(f"Required SDK package missing: {package}")
+        values = dict(line.split("=", 1) for line in props.read_text().splitlines()
+                      if "=" in line and not line.lstrip().startswith("#"))
+        actual = {k.strip(): v.strip() for k, v in values.items()}.get("Pkg.Revision", "")
+        if revision_tuple(actual) != revision_tuple(expected):
+            raise SystemExit(f"SDK revision mismatch: {package}: {actual} != {expected}")
+    installed = subprocess.check_output([*cli, "sdk", "list"], env=env, text=True)
     (CACHE / "sdk-installed.txt").write_text(installed)
+    # Seed the normal Wrapper cache from the same official, verified artifact.
+    # This avoids a github.com redirect without modifying the upstream Wrapper.
+    props = (ROOT / "gradle/wrapper/gradle-wrapper.properties").read_text()
+    wrapper_url = next(line.split("=", 1)[1] for line in props.splitlines()
+                       if line.startswith("distributionUrl=")).replace("\\:", ":")
+    if wrapper_url != LOCK["gradle"]["wrapper_url"]:
+        raise SystemExit("Wrapper URL changed; review and update the toolchain lock.")
+    if "distributionSha256Sum=" + LOCK["gradle"]["sha256"] not in props.splitlines():
+        raise SystemExit("Wrapper checksum differs from toolchain lock.")
+    archive = download(LOCK["gradle"], CACHE / "downloads")
+    value = int(hashlib.md5(wrapper_url.encode(), usedforsecurity=False).hexdigest(), 16)
+    key = ""
+    while value:
+        value, digit = divmod(value, 36)
+        key = "0123456789abcdefghijklmnopqrstuvwxyz"[digit] + key
+    target = CACHE / "gradle/wrapper/dists" / archive.name.removesuffix(".zip") / key
+    target.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(archive, target / archive.name)
+    if args.tools_only:
+        print("Toolchain ready; Core assets were not populated.", flush=True)
+        return
     download(LOCK["core"], ROOT / ".maa-cache")
     # This populates ignored build assets, not any Android device.
     run("python3", str(ROOT / "scripts/setup_maa_core.py"),

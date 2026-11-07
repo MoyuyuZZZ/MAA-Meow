@@ -16,9 +16,13 @@ bash scripts/rk3588/build-cpu.sh
 工具链装在已忽略的 `.cache/rk3588/`，不需要 sudo。
 JDK、SDK command-line tools、MaaCore 版本及下载校验值在
 `scripts/rk3588/toolchain.lock.json`；Gradle 版本和 SHA-256 由原有 Wrapper 固定。
-SDK 的已安装修订记录在 `.cache/rk3588/sdk-installed.txt`。
-SDK 包名中 platform-tools 与 platform 修订可能更新，需保留该记录和缓存；
-这不是位级一致构建的保证。依赖仓库仍需联网，未启用全量离线依赖锁定。
+SDK 包及修订由锁文件固定，并通过 source.properties 核对；安装记录在
+`.cache/rk3588/sdk-installed.txt`。API 37 的平台包名为 `platforms/android-37.0`。
+命令行工具 23 使用 [Android CLI](https://developer.android.com/tools/agents/android-cli)，
+脚本传入 `--no-metrics`，实际 CLI 版本另记在 `.cache/rk3588/android-cli-version.txt`。
+Gradle 从官方发布 API 获取，校验后填入正常 Wrapper 缓存，不修改上游 Wrapper。
+可用 `--tools-only` 暂不准备 Core 资源。依赖仓库仍需联网，未启用全量离线依赖锁定，
+也不保证 APK 位级一致；保留下载缓存和安装记录以便复核。
 
 构建仅 ARM64 Debug，2 个 Gradle worker，3 GiB JVM 堆，关闭本地 LTO。
 APK 位于 `app/build/outputs/apk/debug/`。不使用正式签名或遥测配置。

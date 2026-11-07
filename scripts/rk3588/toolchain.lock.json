@@ -12,18 +12,25 @@
     "url": "https://dl.google.com/android/repository/commandlinetools-linux-16111833_latest.zip",
     "sha1": "e025545c62a8e64c7559119566a569fb1dec5f60"
   },
-  "sdk_packages": [
-    "platform-tools",
-    "platforms;android-37",
-    "build-tools;37.0.0",
-    "ndk;29.0.14206865",
-    "cmake;3.22.1"
-  ],
+  "sdk_packages": {
+    "platform-tools": "37.0.1",
+    "platforms/android-37.0": "2.0.0",
+    "build-tools/37.0.0": "37.0.0",
+    "ndk/29.0.14206865": "29.0.14206865",
+    "cmake/3.22.1": "3.22.1"
+  },
   "core": {
     "repo": "MaaAssistantArknights/MaaAssistantArknights",
     "tag": "v6.21.4",
     "url": "https://github.com/MaaAssistantArknights/MaaAssistantArknights/releases/download/v6.21.4/MAAComponent-v6.21.4-android-arm64.tar.gz",
     "sha256": "2cd2b64d56f6de167c1b63008ac243dd9497aad8be3a4f34679dcfb5b1c7a98c",
     "asset_api": "https://api.github.com/repos/MaaAssistantArknights/MaaAssistantArknights/releases/assets/709162035"
+  },
+  "gradle": {
+    "version": "9.8.2",
+    "wrapper_url": "https://services.gradle.org/distributions/gradle-9.8.2-bin.zip",
+    "url": "https://github.com/gradle/gradle-distributions/releases/download/v9.8.2/gradle-9.8.2-bin.zip",
+    "asset_api": "https://api.github.com/repos/gradle/gradle-distributions/releases/assets/656830895",
+    "sha256": "21bd5da2de49b642904077f38c0efdc7778e92b3ed0889392dca61b97e389607"
   }
 }

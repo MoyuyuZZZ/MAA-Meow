@@ -18,9 +18,9 @@
 | 认证 | VM gh 登录 MoyuyuZZZ，对 Fork 有写权限；仓库级 Git 凭证助手使用 gh |
 | 提交身份 | 经用户确认设置在仓库级，不改全局配置 |
 | 推送 | 未推送；push.default=nothing；须用户确认后显式推送 origin/dev |
-| reDroid | <REDROID_ADB_SERIAL> TCP 可达；尚未进行 Android 运行验收 |
+| reDroid | ADB 已连接 <REDROID_ADB_SERIAL>；arm64-v8a、Android 13 / API 33；未运行 APK |
 | SDK 下载 | command-line tools 23.0 已下载并通过官方 SHA-1 校验 |
-| 工具链安装 | 进行中；以最终构建记录为准 |
+| 工具链安装 | 完成：Temurin 25.0.5+8、Gradle 9.8.2、API 37.0 r2、Build Tools 37.0.0、NDK 29.0.14206865、CMake 3.22.1 |
 | CPU APK | 尚未构建完成 |
 | 修改范围 | 代理约定、开发/验收文档、工具链锁定与 ARM64 CPU 构建脚本 |
 | 本轮边界 | 未修改截图/触控/任务链路或 Core；未部署 APK；未操作 fnOS 或生产 reDroid |
@@ -31,6 +31,13 @@
 - 下载固定 JDK、SDK 和 Core，校验值来自各自官方元数据。
 - 原生取帧调用约 1–2 ms 为用户已有测量，本轮未复测，不作端到端延迟结论。
 - 最小后续任务见 [开发计划](DEVELOPMENT.md#后续最小验证)。
+
+## 工具和资源检查
+
+- Gradle Wrapper --version 通过；运行时为项目内的 Temurin 25.0.5。
+- Android CLI 1.1.16717390；platform-tools 37.0.1；平台实际包名为 android-37.0。
+- MaaCore v6.21.4：官方 ARM64 归档 SHA-256 通过；8 个 ncnn 模型目录通过检查。
+- 资源：9573 个文件，262.7 MiB；保留上游预编译库，不修改 Core。
 
 ## 待补记录
 
