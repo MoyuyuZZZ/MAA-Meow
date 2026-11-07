@@ -113,7 +113,8 @@ def main():
     while value:
         value, digit = divmod(value, 36)
         key = "0123456789abcdefghijklmnopqrstuvwxyz"[digit] + key
-    target = CACHE / "gradle/wrapper/dists" / archive.name.removesuffix(".zip") / key
+    gradle_home = Path(os.environ.get("GRADLE_USER_HOME") or str(Path.home() / ".gradle")).expanduser()
+    target = gradle_home / "wrapper/dists" / archive.name.removesuffix(".zip") / key
     target.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(archive, target / archive.name)
     if args.tools_only:

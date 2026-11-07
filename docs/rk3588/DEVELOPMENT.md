@@ -15,7 +15,9 @@ bash scripts/rk3588/build-cpu.sh
 
 交互使用 java、adb 等工具时，先执行 `source scripts/rk3588/env.sh`。
 
-工具链装在已忽略的 `.cache/rk3588/`，不需要 sudo。
+JDK、Android SDK 和下载缓存装在已忽略的 `.cache/rk3588/`，不需要 sudo。
+Gradle 默认使用个人 `~/.gradle`，也支持显式设置 `GRADLE_USER_HOME`；
+bootstrap 与构建必须使用同一个 Gradle 用户目录。个人代理配置只保留在该目录。
 JDK、SDK command-line tools、MaaCore 版本及下载校验值在
 `scripts/rk3588/toolchain.lock.json`；Gradle 版本和 SHA-256 由原有 Wrapper 固定。
 SDK 包及修订由锁文件固定，并通过 source.properties 核对；安装记录在
@@ -36,6 +38,24 @@ bootstrap 中的 Core “deploy” 仅指向仓库写入忽略的资源/so，不
 MaaCore 使用官方预编译包，不拉取或修改其源码。
 Android OCR 继续使用上游 ncnn 模型；本轮不增加 RKNN、Vulkan 或其他计算后端。
 工具下载中断后可重新执行 bootstrap，已通过校验的完整缓存会复用。
+
+## 下载网络
+
+VM 下载前，在当前 shell 显式加载用户提供的环境文件，再运行命令：
+
+```bash
+source "$HOME/.config/maa-dev/proxy.sh"
+python3 scripts/rk3588/bootstrap.py
+bash scripts/rk3588/build-cpu.sh
+```
+
+curl、gh 和下载子进程继承本次 shell 的代理环境；不能依赖另一终端的变量。
+Gradle JVM 使用个人 Gradle 用户目录中的 gradle.properties，不能仅依赖
+HTTP_PROXY/HTTPS_PROXY。若覆盖 GRADLE_USER_HOME，需自行在对应目录准备个人配置。
+项目不保存代理地址、认证信息或个人配置文件，也不自动 source 用户脚本。
+
+代理仅用于下载；ADB、SSH、fnOS 和 reDroid 继续使用原有局域网连接。
+保持 TLS 校验，不改变默认路由、开启全局 TUN 或公开代理监听端口。
 
 ## 后续最小验证
 
