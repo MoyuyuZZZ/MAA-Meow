@@ -13,6 +13,8 @@ python3 scripts/rk3588/bootstrap.py
 bash scripts/rk3588/build-cpu.sh
 ```
 
+交互使用 java、adb 等工具时，先执行 `source scripts/rk3588/env.sh`。
+
 工具链装在已忽略的 `.cache/rk3588/`，不需要 sudo。
 JDK、SDK command-line tools、MaaCore 版本及下载校验值在
 `scripts/rk3588/toolchain.lock.json`；Gradle 版本和 SHA-256 由原有 Wrapper 固定。
@@ -29,6 +31,7 @@ APK 位于 `app/build/outputs/apk/debug/`。不使用正式签名或遥测配置
 Debug 包沿用原 applicationId；**不要直接安装到正式 MaaMeow 所在实例**。
 安装前另行说明隔离方式和影响，并获得用户同意。
 bootstrap 中的 Core “deploy” 仅指向仓库写入忽略的资源/so，不涉及 ADB。
+重复执行会按上游脚本重建这些生成目录；请勿在其中保存手工修改。
 
 MaaCore 使用官方预编译包，不拉取或修改其源码。
 Android OCR 继续使用上游 ncnn 模型；本轮不增加 RKNN、Vulkan 或其他计算后端。
