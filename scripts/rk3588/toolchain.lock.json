@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "baseline_commit": "9b985bc596dcbe39402febf5074a127a166d1b4e",
+  "jdk": {
+    "version": "25.0.5+8",
+    "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.5%2B8/OpenJDK25U-jdk_x64_linux_hotspot_25.0.5_8.tar.gz",
+    "sha256": "68982529869257d0ee6b824ec5aa270ff8b118bb438670da0b97ebdab178d7fb",
+    "asset_api": "https://api.github.com/repos/adoptium/temurin25-binaries/releases/assets/665812068"
+  },
+  "commandline_tools": {
+    "version": "23.0",
+    "url": "https://dl.google.com/android/repository/commandlinetools-linux-16111833_latest.zip",
+    "sha1": "e025545c62a8e64c7559119566a569fb1dec5f60"
+  },
+  "sdk_packages": [
+    "platform-tools",
+    "platforms;android-37",
+    "build-tools;37.0.0",
+    "ndk;29.0.14206865",
+    "cmake;3.22.1"
+  ],
+  "core": {
+    "repo": "MaaAssistantArknights/MaaAssistantArknights",
+    "tag": "v6.21.4",
+    "url": "https://github.com/MaaAssistantArknights/MaaAssistantArknights/releases/download/v6.21.4/MAAComponent-v6.21.4-android-arm64.tar.gz",
+    "sha256": "2cd2b64d56f6de167c1b63008ac243dd9497aad8be3a4f34679dcfb5b1c7a98c",
+    "asset_api": "https://api.github.com/repos/MaaAssistantArknights/MaaAssistantArknights/releases/assets/709162035"
+  }
+}

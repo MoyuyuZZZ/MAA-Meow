@@ -50,3 +50,12 @@ __pycache__/
 .pi/
 tmp.txt
 .cache/
+
+# RK3588 local signing material and account configuration
+*.keystore
+*.p12
+*.pfx
+*.pem
+/secrets/
+/.env
+/.env.*
