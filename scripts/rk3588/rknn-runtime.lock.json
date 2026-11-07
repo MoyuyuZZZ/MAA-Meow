@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/airockchip/rknn-toolkit2",
+  "tag": "v2.3.2",
+  "commit": "42aa1d426c0a9e0869b6374edba009f7208a1926",
+  "url": "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/42aa1d426c0a9e0869b6374edba009f7208a1926/rknpu2/runtime/Android/librknn_api/arm64-v8a/librknnrt.so",
+  "git_blob_sha1": "843401f25fcdfb78163f752487d25ba036162f0b",
+  "bytes": 8387408,
+  "sha256": "07a8398be5caed21a1998ffa313e0425bb9e76b154a8dbbc667d71722c009351"
+}

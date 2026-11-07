@@ -59,8 +59,10 @@ HTTP_PROXY/HTTPS_PROXY。若覆盖 GRADLE_USER_HOME，需自行在对应目录�
 
 ## 后续最小验证
 
-1. 只读确认 reDroid Android ABI/API、RKNN 设备节点和动态库可见性，
-   区分 fnOS 相册正在使用 NPU 与 Android 内可调用 NPU。
+1. 只读可见性检查已完成：renderD128 对应 RKNPU，驱动 0.9.8；
+   系统库搜索未发现 RKNN Runtime。检查及独立探针见 [RKNN 预检](RKNN-PREFLIGHT.md)。
+   独立探针已通过官方 Runtime 2.3.2 加载及节点打开测试，未执行推理；
+   接下来用固定小模型验证驱动调用，再进入 OCR，不以加载成功推断性能。
 2. 在独立测试包/实例内，以一张固定 OCR 图片验证模型转换、加载和单次推理；
    先说明新代码和部署范围，再实施。
 3. 对同一图片记录 CPU/NPU 文本结果、预处理、推理、后处理及总耗时，
