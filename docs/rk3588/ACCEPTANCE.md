@@ -31,6 +31,8 @@
 - 路径：`~/maa-rk3588/app/build/outputs/apk/debug/app-debug.apk`
 - 大小：296,140,678 bytes（282.4 MiB）。
 - 构建源码提交：`1ecd22b770fc8eece897df30e4970c1c2ef1a71e`。
+  2026-11-08 推送前对文档中的局域网地址和主机信息做了脱敏，并重写本地历史；
+  该提交在公开历史中对应 `0348d35e`，两者源码一致，差异仅在 docs/rk3588 的地址替换。
   此记录及 Build Tools 锁定补充在后续提交中，不改变已验收 APK。
 - versionCode：980；versionName：1ecd22b7。
 - 包名：`com.aliothmoon.maameow`；minSdk 28、targetSdk 36、compileSdk 37。
