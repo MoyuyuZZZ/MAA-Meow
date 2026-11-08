@@ -31,9 +31,12 @@ cflags=(-std=c11 -Wall -Wextra -Werror -O2 -fPIE -pie -Wl,-z,relro,-z,now)
   scripts/rk3588/probe-rknn-access.c -ldl -o "$output/rknn-access"
 "$llvm_bin/aarch64-linux-android28-clang" "${cflags[@]}" -isystem "$infer/official" \
   scripts/rk3588/probe-rknn-infer.c -ldl -lm -o "$infer/rknn-infer"
+"$llvm_bin/aarch64-linux-android28-clang" "${cflags[@]}" -isystem "$infer/official" \
+  scripts/rk3588/probe-rknn-rec.c -ldl -o "$infer/rknn-rec"
 "$llvm_bin/llvm-readelf" -h -l -d "$output/rknn-access" > "$output/probe-elf.txt"
+"$llvm_bin/llvm-readelf" -h -l -d "$infer/rknn-rec" > "$infer/rec-probe-elf.txt"
 "$llvm_bin/llvm-readelf" -h -d "$output/librknnrt.so" > "$output/runtime-elf.txt"
 "$llvm_bin/llvm-readelf" -h -l -d "$infer/rknn-infer" > "$infer/probe-elf.txt"
-sha256sum "$output/rknn-access" "$output/librknnrt.so" "$infer/rknn-infer" \
+sha256sum "$output/rknn-access" "$output/librknnrt.so" "$infer/rknn-infer" "$infer/rknn-rec" \
   "$infer/official/mobilenet_v1.rknn" "$infer/dog_224x224.rgb" "$infer/cat_224x224.rgb"
 printf '%s\n' 'Built only; no Android deployment or execution performed.'

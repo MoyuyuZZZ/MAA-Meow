@@ -6,9 +6,11 @@
 - 保留 Android 本地截图、触控、任务执行和 CPU 后端。
   原生取帧调用约 1–2 ms 是已有测量，不代表画面端到端延迟。
 - 环境初始化及 ARM64 CPU 基线已验收；RKNN 预检及官方 MobileNet 单次推理（ADB shell）已通过。
-  OCR 静态适配性评估已完成（docs/rk3588/OCR-RKNN-ASSESSMENT.md）：rec 优先，det 其次。
-  当前阶段：准备隔离的 RKNN-Toolkit2 转换环境（需用户确认），并验证 rec 转换。
+  OCR 评估见 docs/rk3588/OCR-RKNN-ASSESSMENT.md：rec 已转为 FP16 RKNN，设备精度可用；
+  耗时受 NPU ondemand 调频影响，需要预热并采样频率后复测。不修改宿主调频策略。
   不实现完整加速后端；优先 RKNN/NPU OCR，GPU 备选。
+- 转换环境：bash scripts/rk3588/setup-rknn-toolkit.sh，之后用 .cache/rk3588/rknn-venv/bin/python。
+  用户日志包放在 maa-log/（本地 exclude，不提交），只统计数字，不在提交中引用识别文本。
 - MaaCore 源码按需只读获取；新 Fork、修改 Core 或部署 APK 前先说明范围。
 - 不覆盖正式 MaaMeow，不修改 fnOS 驱动/相册运行库，不重启或重建生产 reDroid。
 - sudo 命令由用户在自己的终端执行。不得扫描整个家目录或输出密钥、Token。

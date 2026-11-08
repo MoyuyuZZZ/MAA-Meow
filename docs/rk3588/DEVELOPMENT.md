@@ -67,6 +67,9 @@ HTTP_PROXY/HTTPS_PROXY。若覆盖 GRADLE_USER_HOME，需自行在对应目录�
 2. 在独立测试包/实例内，以一张固定 OCR 图片验证模型转换、加载和单次推理；
    先说明新代码和部署范围，再实施。静态适配性评估见 [OCR RKNN 评估](OCR-RKNN-ASSESSMENT.md)：
    rec 固定为 48×320、算子全部在支持表中，优先验证；det 输入动态，放在后面。
+   2026-11-08 rec 已完成转换（setup-rknn-toolkit.sh、convert-ocr-rec.py）、模拟器对比和设备探针
+   （run-rknn-rec-once.sh）：字符 91/91，中文 316/321（差异均为低置信度单字符）。
+   耗时受 NPU 调频影响，待复测。
 3. 对同一图片记录 CPU/NPU 文本结果、预处理、推理、后处理及总耗时，
    冷/热启动分开；保留 CPU 回退。仅在 NPU 路径不可用时评估 GPU。
 4. 单独记录截图采集和整条任务延迟。已有取帧调用 1–2 ms

@@ -1,0 +1,16 @@
+# RKNN-Toolkit2 2.3.2 conversion environment (x86_64, CPython 3.12). Constraints follow
+# rknn-toolkit2/packages/x86_64/requirements_cp312-2.3.2.txt at commit 42aa1d42.
+rknn-toolkit2==2.3.2
+protobuf>=4.21.6,<=4.25.4
+psutil>=5.9.0
+ruamel.yaml>=0.17.21
+scipy>=1.9.3
+tqdm>=4.64.1
+# Headless replacement for opencv-python (see rknn-toolkit-overrides.txt).
+opencv-python-headless>=4.5.5.64
+fast-histogram>=0.11
+numpy<=1.26.4
+onnx>=1.16.1
+onnxruntime>=1.17.0
+# CPU-only build from the PyTorch index avoids multi-GiB CUDA wheels.
+torch @ https://download.pytorch.org/whl/cpu/torch-2.4.0%2Bcpu-cp312-cp312-linux_x86_64.whl#sha256=78dbf5f2789933a7ea2dabeead4daa44679b1e0d8eb35ddb7071c8ab7b181eb3
