@@ -71,7 +71,7 @@ for kind in word char; do
     if [[ "$kind" == word ]]; then model="${remote[2]}"; canvases="${remote[4]}"; result="${results[0]}"
     else model="${remote[3]}"; canvases="${remote[5]}"; result="${results[1]}"; fi
     set +e
-    timeout 120 adb -s "$serial" shell -n "${remote[0]}" "${remote[1]}" "$model" "$warm_runs" "$canvases" "$result" \
+    timeout 120 adb -s "$serial" shell -n "${remote[0]}" -w "$warm_runs" -o "$result" "${remote[1]}" "$model" "$canvases" \
         > "$tag.$kind.log" 2>&1
     code=$?
     set -e

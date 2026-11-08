@@ -9,6 +9,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / ".cache/rk3588/ocr-rknn"
+LOW_CONF = 0.6
 
 def decode(classes, probs, chars):
     text, confs, prev = [], [], -1
@@ -54,7 +55,11 @@ def main():
     for i in [i for i in range(lines) if not equal[i]][:15]:
         print(f"DIFF line={i} image={rows[i]['image']} box={rows[i]['box']} onnx={rows[i]['onnx']!r} "
               f"device={texts[i][0]!r}({texts[i][1]:.3f})")
-    ok = sum(equal) >= lines - sum(r["onnx"] != r["rknn_sim"] for r in rows)
+    # Differences are tolerated only on lines the CPU reference itself reads with confidence < 0.6
+    # (typically non-text fragments); any difference on a confident line fails the check.
+    confident_diffs = [i for i in range(lines) if not equal[i] and rows[i]["onnx_conf"] >= LOW_CONF]
+    print(f"differences on lines with onnx confidence >= {LOW_CONF}: {len(confident_diffs)}")
+    ok = not confident_diffs
     print("REC_DEVICE_CHECK=" + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
 
