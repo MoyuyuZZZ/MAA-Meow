@@ -6,6 +6,7 @@ Run with .cache/rk3588/rknn-venv/bin/python. MaaCore pads every text line to a f
 into the RKNN model so the device feeds uint8 NHWC BGR directly. No quantisation.
 """
 import argparse
+import os
 from pathlib import Path
 import sys
 
@@ -18,6 +19,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", default="PaddleOCR_rec", help="Directory name under ocr-eval/onnx")
     args = parser.parse_args()
+    OUT.mkdir(parents=True, exist_ok=True)
+    os.chdir(OUT)  # RKNN-Toolkit writes check*.onnx intermediates into the working directory
     onnx = ROOT / ".cache/rk3588/ocr-eval/onnx" / args.model / "inference.onnx"
     OUT.mkdir(parents=True, exist_ok=True)
     target = OUT / f"{args.model}-rk3588-fp16-48x320.rknn"

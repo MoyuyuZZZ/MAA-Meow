@@ -9,6 +9,7 @@ Rec preprocessing mirrors OcrPackNcnn::recognize_line; RKNN gets uint8 NHWC BGR 
 normalisation is folded into the model. Crops and per-line results stay in .cache (ignored).
 """
 import argparse
+import os
 import json
 import math
 from pathlib import Path
@@ -114,6 +115,8 @@ def main():
     parser.add_argument("log_dir", type=Path, help="Extracted maa_logs_* directory")
     parser.add_argument("--kind", choices=MODELS, default="word")
     args = parser.parse_args()
+    OUT.mkdir(parents=True, exist_ok=True)
+    os.chdir(OUT)  # RKNN-Toolkit writes check*.onnx intermediates into the working directory
     model_dir, ocr_class = MODELS[args.kind]
     images = sorted((args.log_dir / "oper").glob("*_raw.png"))
     if args.kind == "word":
