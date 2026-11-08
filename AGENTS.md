@@ -25,5 +25,6 @@
 - Gradle 个人代理仅放在个人 Gradle 用户目录，不写入仓库；局域网 ADB/SSH 保持原连接。
 - 不改默认路由、不启用全局 TUN、不关闭 TLS 校验、不在公网暴露代理。
 - 提交内容不写局域网地址、VM 用户名和主机名；设备脚本的 ADB 序列号通过参数或 MAA_ADB_SERIAL 提供。
-  真实地址、主机指纹和脱敏对照见 local/ENVIRONMENT.md（仅本地，已忽略）；设备脚本前先 source local/env.local.sh。
+  真实地址、主机指纹和脱敏对照由用户离线保管（原 local/ENVIRONMENT.md，已从 VM 删除）；
+  运行设备脚本前向用户确认 ADB 序列号并通过 MAA_ADB_SERIAL 提供。
 - 独立 RKNN 探针与 MaaMeow 分离；设备端部署/执行前列明临时文件、命令及影响范围。
