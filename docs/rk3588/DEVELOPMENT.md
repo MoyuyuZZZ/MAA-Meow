@@ -69,7 +69,9 @@ HTTP_PROXY/HTTPS_PROXY。若覆盖 GRADLE_USER_HOME，需自行在对应目录�
    rec 固定为 48×320、算子全部在支持表中，优先验证；det 输入动态，放在后面。
    2026-11-08 rec 已完成转换（setup-rknn-toolkit.sh、convert-ocr-rec.py）、模拟器对比和设备探针
    （run-rknn-rec-once.sh）：字符 91/91，中文 316/321（差异均为低置信度单字符）。
-   耗时受 NPU 调频影响，待复测。
+   带频率采样的复测（run-rknn-rec-bench.sh）显示：宿主 rknpu_ondemand 下 NPU 大多停在 300 MHz，
+   此时 rec 与 CPU 相当（中文 FP16 输出合计 33.6 ms，CPU 26 ms）；字符模型升到 1 GHz 后 run 为 9.7 ms。
+   瓶颈在卷积主干。后续方向见评估文档的“下一步”。
 3. 对同一图片记录 CPU/NPU 文本结果、预处理、推理、后处理及总耗时，
    冷/热启动分开；保留 CPU 回退。仅在 NPU 路径不可用时评估 GPU。
 4. 单独记录截图采集和整条任务延迟。已有取帧调用 1–2 ms

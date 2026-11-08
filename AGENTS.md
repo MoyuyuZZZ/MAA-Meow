@@ -7,7 +7,8 @@
   原生取帧调用约 1–2 ms 是已有测量，不代表画面端到端延迟。
 - 环境初始化及 ARM64 CPU 基线已验收；RKNN 预检及官方 MobileNet 单次推理（ADB shell）已通过。
   OCR 评估见 docs/rk3588/OCR-RKNN-ASSESSMENT.md：rec 已转为 FP16 RKNN，设备精度可用；
-  耗时受 NPU ondemand 调频影响，需要预热并采样频率后复测。不修改宿主调频策略。
+  复测显示 NPU 在宿主 ondemand 调频下多停在 300 MHz，此时与 CPU 相当；1 GHz 下字符 rec 合计约为 CPU 的一半。
+  不修改宿主调频策略；如需固定频率对照，由用户自行在宿主上执行并恢复。
   不实现完整加速后端；优先 RKNN/NPU OCR，GPU 备选。
 - 转换环境：bash scripts/rk3588/setup-rknn-toolkit.sh，之后用 .cache/rk3588/rknn-venv/bin/python。
   用户日志包放在 maa-log/（本地 exclude，不提交），只统计数字，不在提交中引用识别文本。
