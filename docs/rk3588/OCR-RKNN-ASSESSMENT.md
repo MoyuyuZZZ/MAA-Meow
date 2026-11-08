@@ -1,5 +1,19 @@
 # OCR 模型 RKNN 适配性评估与 rec 验证
 
+> **结论先行（2026-11-08，已收尾）：在这台 RK3588 + reDroid 上，用 NPU 跑 MaaMeow 的 OCR 不值得做。**
+>
+> - **能跑，精度也够**：MaaCore 的 rec 模型转成 FP16 RKNN 后，设备上字符识别 91/91 与 CPU 一致，
+>   中文 316/321，差异只出现在 CPU 自己也没把握（置信度 < 0.6）的行上。
+> - **不更快**：宿主 NPU 调频策略为 rknpu_ondemand，按 MaaCore 的调用节奏，NPU 基本停在 300 MHz。
+>   此时中文 rec 单次约 33.6 ms，CPU（ncnn）约 26 ms；只有升到 1 GHz 时才明显更快（字符 rec 约 10 ms，CPU 约 22 ms）。
+> - **省不了多少 CPU**：实测常规任务和自动肉鸽期间，整机只用 2.7–3.1 / 8 核；OCR 平均只占约 0.12–0.24 核，
+>   只有 OperBox 在约 1 分钟内达到约 1.8 核。肉鸽的主要 CPU 开销是模板匹配，不是 NPU 能处理的工作。
+> - **代价不小**：要从源码构建 MaaCore、随 APK 附带 Rockchip 专有许可的运行库、上游每次更新 OCR 模型都要重新转换，
+>   任务时间还会增加约 1–2%（OperBox 约 12%）。
+>
+> **什么时候值得重新评估**：CPU 真正吃紧时（例如同一宿主多开实例），宿主调频策略允许 NPU 保持较高频率时，
+> 或者 MaaCore 改用更适合 NPU 的 OCR 模型时。复现入口见 [docs/rk3588/README.md](README.md)。
+
 2026-11-08。开发 VM：<user>@<dev-vm>，~/maa-rk3588，dev。
 前半部分为只读与静态分析；后半部分记录用户确认后的日志统计、rec 转换、模拟器精度和设备探针结果。
 前置结论见 [RKNN 预检](RKNN-PREFLIGHT.md)：官方 MobileNet 已在 ADB shell 中完成真实推理。

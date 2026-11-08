@@ -1,5 +1,7 @@
 # RK3588 / reDroid 开发
 
+> 状态（2026-11-08）：NPU OCR 方向已收尾，结论是不值得做，见 [README](README.md)。
+
 本轮以 Ubuntu VM 的 `~/maa-rk3588` 为开发目录，
 在 `dev` 保留 MaaMeow 原有 CPU 后端、Android 本地截图、触控和任务执行。
 上游构建说明见 [BUILDING](../zh-cn/develop/BUILDING.md)，本文件仅补充本 Fork 的流程。
