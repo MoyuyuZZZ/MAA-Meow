@@ -1,0 +1,66 @@
+{
+  "repository": "https://github.com/airockchip/rknn-toolkit2",
+  "tag": "v2.3.2",
+  "commit": "42aa1d426c0a9e0869b6374edba009f7208a1926",
+  "files": [
+    {
+      "role": "model",
+      "path": "rknpu2/examples/rknn_mobilenet_demo/model/RK3588/mobilenet_v1.rknn",
+      "url": "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/42aa1d426c0a9e0869b6374edba009f7208a1926/rknpu2/examples/rknn_mobilenet_demo/model/RK3588/mobilenet_v1.rknn",
+      "git_blob_sha1": "d827efff339ebb048a6315378b7175dfba7c68c6",
+      "bytes": 4693865,
+      "sha256": "381dae3b7038a98b10f6ec9dcdbb094a49247341856fb294e692ef518218fcfb"
+    },
+    {
+      "role": "image",
+      "path": "rknpu2/examples/rknn_mobilenet_demo/model/dog_224x224.jpg",
+      "url": "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/42aa1d426c0a9e0869b6374edba009f7208a1926/rknpu2/examples/rknn_mobilenet_demo/model/dog_224x224.jpg",
+      "git_blob_sha1": "4f46457bc9c6438863e497e07e9e7c58a4212231",
+      "bytes": 18889,
+      "sha256": "c350299c6283d5f62fecf1f845b6b3be9aafec8dff528ca09a129990f0a584b0"
+    },
+    {
+      "role": "image",
+      "path": "rknpu2/examples/rknn_mobilenet_demo/model/cat_224x224.jpg",
+      "url": "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/42aa1d426c0a9e0869b6374edba009f7208a1926/rknpu2/examples/rknn_mobilenet_demo/model/cat_224x224.jpg",
+      "git_blob_sha1": "11c5ba468f07b434097ad33e5687b82e55f553d4",
+      "bytes": 58701,
+      "sha256": "0ce3ef6da3424c0744385935a210e4ec8ab3a6ddda205113ab07b77f9c0e812a"
+    },
+    {
+      "role": "labels",
+      "path": "rknn-toolkit2/examples/tflite/mobilenet_v1/labels.txt",
+      "url": "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/42aa1d426c0a9e0869b6374edba009f7208a1926/rknn-toolkit2/examples/tflite/mobilenet_v1/labels.txt",
+      "git_blob_sha1": "dcd01c14b4635096ae295a8e81de0f65188bc1f8",
+      "bytes": 25584,
+      "sha256": "1e3ce2539ea02a81eac8ddc06bb7bfbbc7dfbd1e4e092672284410e8fd73ae57"
+    },
+    {
+      "role": "header",
+      "path": "rknpu2/runtime/Android/librknn_api/include/rknn_api.h",
+      "url": "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/42aa1d426c0a9e0869b6374edba009f7208a1926/rknpu2/runtime/Android/librknn_api/include/rknn_api.h",
+      "git_blob_sha1": "6b294d2fcf69464716f4919afc1c9ac67a034b27",
+      "bytes": 35707,
+      "sha256": "c48e11a6f41b451a5fd1e4ad774ea60252d3d94f78bee9b21ea3d21b21deba9a"
+    }
+  ],
+  "jpeg_decoder": {
+    "package": "pillow",
+    "version": "12.3.0",
+    "url": "https://files.pythonhosted.org/packages/5c/44/c85361f65dbe00eea8576ee467c768d25129989efb76e94f205e9ca9bb46/pillow-12.3.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "bytes": 6936962,
+    "sha256": "251bf95b67017e27b13d82f5b326234ca62d70f9cf4c2b9032de2358a3b12c7b"
+  },
+  "expected": {
+    "dog_224x224.rgb": {
+      "top1": 156,
+      "label": "Shih-Tzu",
+      "reference_score": 0.928223,
+      "source": "rknn-toolkit2/examples/tflite/mobilenet_v1/README.md (rk3566 build; scores may differ slightly)"
+    },
+    "cat_224x224.rgb": {
+      "top1_any_of": [282, 283, 284, 285, 286],
+      "source": "Sanity range of domestic cat labels in labels.txt; no official expected output"
+    }
+  }
+}

@@ -61,8 +61,9 @@ HTTP_PROXY/HTTPS_PROXY。若覆盖 GRADLE_USER_HOME，需自行在对应目录�
 
 1. 只读可见性检查已完成：renderD128 对应 RKNPU，驱动 0.9.8；
    系统库搜索未发现 RKNN Runtime。检查及独立探针见 [RKNN 预检](RKNN-PREFLIGHT.md)。
-   独立探针已通过官方 Runtime 2.3.2 加载及节点打开测试，未执行推理；
-   接下来用固定小模型验证驱动调用，再进入 OCR，不以加载成功推断性能。
+   独立探针已通过官方 Runtime 2.3.2 加载及节点打开测试。
+   2026-11-08 官方 MobileNet V1（RK3588）单次推理验证通过：Top-1 正确，热推理 run 约 5.2 ms；
+   仅限 ADB shell 环境，不是性能验收。入口见 build-rknn-probe.sh 与 run-rknn-infer-once.sh。
 2. 在独立测试包/实例内，以一张固定 OCR 图片验证模型转换、加载和单次推理；
    先说明新代码和部署范围，再实施。
 3. 对同一图片记录 CPU/NPU 文本结果、预处理、推理、后处理及总耗时，

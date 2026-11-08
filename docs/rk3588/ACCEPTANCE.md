@@ -98,4 +98,9 @@ API 下载入口与完整缓存绕过了本轮 github.com 直连超时；
 并在 VM 编译独立预检探针。说明部署范围后，执行一次临时加载/访问验证：
 官方 Android Runtime 2.3.2 加载、四个导出符号及 NPU 节点 open/close 均通过，
 退出码 0，设备端临时文件已清理。详见 [RKNN 预检记录](RKNN-PREFLIGHT.md)。
-未安装 APK、加载模型或提交推理，不构成 NPU 推理或性能验收。
+该次预检未加载模型。
+
+2026-11-08 经用户确认后，用官方 RK3588 MobileNet V1 示例模型在 ADB shell 中执行了一次推理：
+dog 图 Top-1 为 156 Shih-Tzu（与官方一致），cat 图 Top-1 为家猫类，
+热推理输出稳定，临时文件已清理。未安装 APK，未进行 OCR 推理，
+不构成 OCR、App 进程访问或性能验收。
