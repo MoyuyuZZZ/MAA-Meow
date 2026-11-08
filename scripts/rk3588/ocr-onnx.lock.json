@@ -1,0 +1,47 @@
+{
+  "repository": "https://github.com/MaaAssistantArknights/MaaAssistantArknights",
+  "tag": "v6.21.4",
+  "commit": "52d0b2acaca116585b02e1e6a9da303460f81a24",
+  "files": [
+    {
+      "name": "PaddleOCR_det.onnx",
+      "path": "resource/PaddleOCR/det/inference.onnx",
+      "url": "https://raw.githubusercontent.com/MaaAssistantArknights/MaaAssistantArknights/52d0b2acaca116585b02e1e6a9da303460f81a24/resource/PaddleOCR/det/inference.onnx",
+      "git_blob_sha1": "970c1e96ab377a2fe8fc104a84aecc26237a4daf",
+      "bytes": 2434618,
+      "sha256": "d572c1773fd00e72f2f2a4c6399513223c49d70f64bc8ccf52fc6cc500b2803c"
+    },
+    {
+      "name": "PaddleOCR_rec.onnx",
+      "path": "resource/PaddleOCR/rec/inference.onnx",
+      "url": "https://raw.githubusercontent.com/MaaAssistantArknights/MaaAssistantArknights/52d0b2acaca116585b02e1e6a9da303460f81a24/resource/PaddleOCR/rec/inference.onnx",
+      "git_blob_sha1": "b332981b381448cedc9beb8fb566884a41e83aac",
+      "bytes": 10736541,
+      "sha256": "ece6e0173b177a79358b7610524d768711c7c887895f1b2b767e2bed83ec88cf"
+    },
+    {
+      "name": "PaddleCharOCR_det.onnx",
+      "path": "resource/PaddleCharOCR/det/inference.onnx",
+      "url": "https://raw.githubusercontent.com/MaaAssistantArknights/MaaAssistantArknights/52d0b2acaca116585b02e1e6a9da303460f81a24/resource/PaddleCharOCR/det/inference.onnx",
+      "git_blob_sha1": "acb4b75aaf1e46ff064b16471de5eb08b4da70f1",
+      "bytes": 2434618,
+      "sha256": "b4752bec39a670f4a59dbbd064bcfdbed2f06606a82622538b5089e038f90575"
+    },
+    {
+      "name": "PaddleCharOCR_rec.onnx",
+      "path": "resource/PaddleCharOCR/rec/inference.onnx",
+      "url": "https://raw.githubusercontent.com/MaaAssistantArknights/MaaAssistantArknights/52d0b2acaca116585b02e1e6a9da303460f81a24/resource/PaddleCharOCR/rec/inference.onnx",
+      "git_blob_sha1": "00db9d2a4ac265b532951a8c9c9d7fceaa14ba4b",
+      "bytes": 8963651,
+      "sha256": "6d27f689925254336e9eaa9fa490e77ca0726899d34e11aeacb3b1190b30bb72"
+    }
+  ],
+  "op_support": {
+    "name": "RKNNToolKit2_OP_Support-2.3.2.md",
+    "path": "doc/RKNNToolKit2_OP_Support-2.3.2.md",
+    "url": "https://raw.githubusercontent.com/airockchip/rknn-toolkit2/42aa1d426c0a9e0869b6374edba009f7208a1926/doc/RKNNToolKit2_OP_Support-2.3.2.md",
+    "git_blob_sha1": "3da41c11c16edfb2e3675a7d6c310c5690f0e0c5",
+    "bytes": 41421,
+    "sha256": "7d23d45271de939e24aca966c5fd0445268e279019c54c8073a6663c589a743a"
+  }
+}

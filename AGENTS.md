@@ -6,7 +6,8 @@
 - 保留 Android 本地截图、触控、任务执行和 CPU 后端。
   原生取帧调用约 1–2 ms 是已有测量，不代表画面端到端延迟。
 - 环境初始化及 ARM64 CPU 基线已验收；RKNN 预检及官方 MobileNet 单次推理（ADB shell）已通过。
-  当前阶段：评估 OCR 模型转换，并准备独立的单图 OCR 探针。
+  OCR 静态适配性评估已完成（docs/rk3588/OCR-RKNN-ASSESSMENT.md）：rec 优先，det 其次。
+  当前阶段：准备隔离的 RKNN-Toolkit2 转换环境（需用户确认），并验证 rec 转换。
   不实现完整加速后端；优先 RKNN/NPU OCR，GPU 备选。
 - MaaCore 源码按需只读获取；新 Fork、修改 Core 或部署 APK 前先说明范围。
 - 不覆盖正式 MaaMeow，不修改 fnOS 驱动/相册运行库，不重启或重建生产 reDroid。

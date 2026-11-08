@@ -65,7 +65,8 @@ HTTP_PROXY/HTTPS_PROXY。若覆盖 GRADLE_USER_HOME，需自行在对应目录�
    2026-11-08 官方 MobileNet V1（RK3588）单次推理验证通过：Top-1 正确，热推理 run 约 5.2 ms；
    仅限 ADB shell 环境，不是性能验收。入口见 build-rknn-probe.sh 与 run-rknn-infer-once.sh。
 2. 在独立测试包/实例内，以一张固定 OCR 图片验证模型转换、加载和单次推理；
-   先说明新代码和部署范围，再实施。
+   先说明新代码和部署范围，再实施。静态适配性评估见 [OCR RKNN 评估](OCR-RKNN-ASSESSMENT.md)：
+   rec 固定为 48×320、算子全部在支持表中，优先验证；det 输入动态，放在后面。
 3. 对同一图片记录 CPU/NPU 文本结果、预处理、推理、后处理及总耗时，
    冷/热启动分开；保留 CPU 回退。仅在 NPU 路径不可用时评估 GPU。
 4. 单独记录截图采集和整条任务延迟。已有取帧调用 1–2 ms
